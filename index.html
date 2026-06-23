@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>업무관리 앱(AppSheet) 안내서 — 따라하기 매뉴얼</title>
+<style>
+  :root{
+    --ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2563eb;--brand2:#0ea5e9;
+    --green:#16a34a;--amber:#d97706;--red:#dc2626;--soft:#f3f4f6;--soft2:#f9fafb;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05);
+    --side:268px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);line-height:1.7;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  /* sidebar */
+  .side{position:fixed;top:0;left:0;width:var(--side);height:100vh;overflow-y:auto;
+    background:#0f172a;color:#cbd5e1;padding:20px 16px 40px}
+  .side .brand{display:inline-block;background:var(--brand);color:#fff;font-weight:800;font-size:12px;
+    padding:5px 11px;border-radius:999px;margin-bottom:12px}
+  .side h1{font-size:16px;color:#fff;margin:0 0 4px;line-height:1.4}
+  .side .sub{font-size:12px;color:#94a3b8;margin:0 0 18px}
+  .side nav a{display:block;color:#cbd5e1;text-decoration:none;font-size:13.5px;padding:7px 10px;
+    border-radius:8px;margin:2px 0}
+  .side nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .side nav a.part{font-weight:700;color:#fff;margin-top:10px}
+  .side nav a .n{display:inline-block;width:22px;color:#60a5fa;font-weight:800}
+  .side .meta{margin-top:22px;font-size:11px;color:#64748b;border-top:1px solid #1e293b;padding-top:12px}
+  /* main */
+  .wrap{margin-left:var(--side);max-width:860px;padding:0 32px 100px}
+  header.top{padding:38px 0 10px}
+  header.top h1{font-size:28px;margin:0 0 6px;letter-spacing:-.5px}
+  header.top p{color:var(--muted);margin:2px 0;font-size:15px}
+  section{padding:28px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  h2{font-size:23px;margin:6px 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+  .part-tag{display:inline-block;background:var(--brand);color:#fff;font-weight:800;font-size:12px;
+    padding:3px 11px;border-radius:7px;margin-bottom:8px}
+  h3{font-size:17px;margin:24px 0 8px}
+  p{margin:9px 0}
+  .lead{color:var(--muted);font-size:15.5px}
+  /* steps */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:14px 16px 14px 54px;border:1px solid var(--line);
+    border-radius:12px;margin:10px 0;background:var(--soft2)}
+  ol.steps>li::before{content:counter(s);position:absolute;left:14px;top:13px;background:var(--brand);color:#fff;
+    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+  ol.steps>li b{color:#111827}
+  .click{display:inline-block;background:#dbeafe;color:#1e40af;font-weight:700;border-radius:6px;padding:1px 8px;font-size:13.5px;white-space:nowrap}
+  .type{display:inline-block;background:#dcfce7;color:#166534;font-weight:700;border-radius:6px;padding:1px 8px;font-size:13.5px;font-family:ui-monospace,Menlo,monospace}
+  .menu{display:inline-block;background:#f3f4f6;border:1px solid var(--line);border-radius:6px;padding:1px 8px;font-size:13px;font-weight:600}
+  /* callouts */
+  .box{border-left:4px solid var(--brand2);background:#eff6ff;border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:14.5px}
+  .box.warn{border-color:var(--amber);background:#fffbeb}
+  .box.danger{border-color:var(--red);background:#fef2f2}
+  .box.good{border-color:var(--green);background:#f0fdf4}
+  .box .t{font-weight:800;display:block;margin-bottom:3px}
+  /* mockup (실제 화면 재현) */
+  .mock{border:1px solid #cbd5e1;border-radius:12px;margin:16px 0;overflow:hidden;box-shadow:var(--shadow);background:#fff}
+  .mock .bar{background:#f1f5f9;border-bottom:1px solid var(--line);padding:7px 12px;font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
+  .mock .bar .dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1}
+  .mock .body{padding:14px 16px;font-size:13.5px}
+  .mock .cap{background:var(--soft2);border-top:1px dashed var(--line);padding:6px 12px;font-size:12px;color:var(--muted)}
+  .ui-menu{display:inline-flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow);min-width:200px;overflow:hidden}
+  .ui-menu .item{padding:8px 14px;font-size:13.5px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;gap:14px}
+  .ui-menu .item:last-child{border-bottom:none}
+  .ui-menu .item.hl{background:#dbeafe;font-weight:700;color:#1e40af}
+  .ui-btn{display:inline-block;border:1px solid var(--line);border-radius:8px;padding:7px 14px;font-size:13px;background:#fff;margin:3px 4px 3px 0}
+  .ui-btn.blue{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:700}
+  .ui-btn.hl{outline:3px solid #fca5a5;outline-offset:2px}
+  .ui-field{border:2px solid var(--brand);border-radius:8px;padding:8px 12px;background:#fff;font-size:13.5px;display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+  .imgslot{border:2px dashed #cbd5e1;border-radius:10px;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f3f4f6 10px,#f3f4f6 20px);
+    padding:18px;text-align:center;color:#9ca3af;font-size:13px;margin:12px 0}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:700}
+  code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace}
+  .pill{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700}
+  .status{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px}
+  .status.done{background:#dcfce7;color:#166534}
+  .status.prog{background:#fef9c3;color:#854d0e}
+  .status.todo{background:#f3f4f6;color:#6b7280}
+  footer{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:880px){
+    .side{position:static;width:auto;height:auto}
+    .wrap{margin-left:0;padding:0 18px 60px}
+  }
+</style>
+</head>
+<body>
+  <aside class="side">
+    <span class="brand">업무관리</span>
+    <h1>업무관리 앱 안내서</h1>
+    <p class="sub">도입 배경 + 제작 매뉴얼</p>
+    <nav>
+      <a class="part" style="color:#7dd3fc">📢 도입 배경 <span style="font-weight:400;font-size:11px;color:#64748b">(팀 공유용)</span></a>
+      <a href="#why-pain"><span class="n">·</span>우리가 겪은 불편</a>
+      <a href="#why-choice"><span class="n">·</span>왜 이 방식인가</a>
+      <a href="#alternatives"><span class="n">·</span>다른 도구·비용 비교</a>
+      <a href="#why-control"><span class="n">·</span>우리가 다룰 수 있나?</a>
+      <a href="#mockup" class="part" style="color:#fbbf24;margin-top:14px">📱 완성 예상 모습 <span style="font-weight:400;font-size:11px;color:#64748b">(목업)</span></a>
+      <a class="part" style="color:#86efac;margin-top:14px">🔧 제작 매뉴얼 <span style="font-weight:400;font-size:11px;color:#64748b">(담당자용)</span></a>
+      <a href="#concept"><span class="n">·</span>기본 개념</a>
+      <a href="#prep"><span class="n">·</span>사전 준비</a>
+      <a href="#p1"><span class="n">1</span>백엔드 구글 시트</a>
+      <a href="#p2"><span class="n">2</span>AppSheet 앱 생성</a>
+      <a href="#p3"><span class="n">3</span>테이블 3개 연결</a>
+      <a href="#p4"><span class="n">4</span>컬럼 타입 설정</a>
+      <a href="#p5"><span class="n">5</span>화면(뷰) 만들기 <span class="status todo">예정</span></a>
+      <a href="#p6"><span class="n">6</span>알림·전자결재 <span class="status todo">예정</span></a>
+    </nav>
+    <div class="meta">○○산업(주) · 안내 문서<br>최종 수정: 2026-06-23</div>
+  </aside>
+
+  <div class="wrap">
+    <header class="top" id="intro">
+      <h1>업무관리 앱(AppSheet) 제작설명서</h1>
+      <p>이 문서 하나만 보고 따라 하면, 앱 개발을 몰라도 <b>업무관리 앱을 직접 만들거나 고칠 수</b> 있습니다.</p>
+      <p>회사 구글 워크스페이스 + AppSheet(구글 무료 도구)로 만듭니다.</p>
+    </header>
+
+    <div class="box">
+      <span class="t">📖 이 문서의 구성 — 두 부분</span>
+      <b>① 도입 배경</b>(왜 이 방식을 쓰는지 — 팀과 함께 읽는 부분)과 <b>② 제작 매뉴얼</b>(실제로 만들고 고치는 법 — 담당자가 보는 부분).
+      바쁘시면 <b>①만 읽어도</b> "이게 왜 필요하고, 우리가 충분히 다룰 수 있는지"를 알 수 있습니다.
+    </div>
+
+    <!-- =================== PART A : 도입 배경 (팀 공유용) =================== -->
+    <div style="background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;border-radius:14px;padding:16px 20px;margin:22px 0 4px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:1px;opacity:.85">📢 PART A · 팀과 함께 읽기</div>
+      <div style="font-size:20px;font-weight:800;margin-top:2px">왜 이 방식인가 — 도입 배경</div>
+      <div style="font-size:13.5px;opacity:.92;margin-top:4px">새로운 걸 “배워야 하는” 이야기가 아니라, <b>이미 쓰는 도구를 더 잘 쓰는</b> 이야기입니다.</div>
+    </div>
+
+    <section id="why-pain">
+      <h2>1. 우리가 겪은 불편 — 무엇이 빠졌나</h2>
+      <p class="lead">Flow에서 구글 워크스페이스로 옮기며 메일·문서공유·드라이브·일정·AI(제미나이·노트북LM)는 분명히 좋아졌습니다. 그런데 한 가지가 사라졌습니다 — <b>“업무관리”</b>입니다.</p>
+      <p>누가 무슨 일을 <b>어디까지 했는지(상태)</b>, 그 일에 대한 <b>의견·피드백(업무별 댓글)</b>, <b>누가 언제 무엇을 바꿨는지(추적)</b> — 이게 안 보입니다. 구글 Tasks는 개인 메모, 채팅은 대화가 위로 흘러가 묻혀버립니다.</p>
+      <div class="box"><span class="t">핵심</span> 구글 워크스페이스는 일부러 <b>“업무관리(PM)” 역할을 하지 않습니다.</b> 고장이 아니라 설계 의도입니다 — 워크스페이스는 <b>소통·문서·저장</b> 도구이지, 업무를 카드로 관리·추적하는 도구가 아닙니다.</div>
+      <table>
+        <tr><th>워크스페이스가 잘하는 것</th><th>빠진 것 (= Flow가 해주던 업무관리·PM)</th></tr>
+        <tr><td>메일 · 문서 공동작업 · 드라이브 · 캘린더 · 화상회의 · AI</td><td>업무 상태 공유(진행·완료) · 업무별 의견(댓글) · 담당·추적</td></tr>
+      </table>
+      <p>그래서 전 세계 회사들은 워크스페이스 <b>“위에” 업무관리 도구를 하나 얹어서</b> 씁니다. 우리도 그 한 가지만 채우면 됩니다.</p>
+    </section>
+
+    <section id="why-choice">
+      <h2>2. 왜 AppSheet + Apps Script인가 — 당위성</h2>
+      <p class="lead">외부의 또 다른 유료 서비스를 새로 들이는 대신, <b>이미 우리가 매달 돈 내고 쓰는 구글 워크스페이스에 포함된 두 도구</b>로 해결합니다.</p>
+      <table>
+        <tr><th>도구</th><th>역할</th><th>우리와의 관계</th></tr>
+        <tr><td><b>AppSheet</b></td><td>구글 시트를 <b>앱 화면·알림</b>으로 (코딩 없이 설정만으로)</td><td>구글이 만든 도구. <b>우리 워크스페이스(유료)에 포함</b> → 추가 비용 없음</td></tr>
+        <tr><td><b>Apps Script</b></td><td>자동화 (알림 발송·반복 작업 등)</td><td><b>우리 팀이 이미 구글 시트에 쓰고 있는 바로 그 기술</b></td></tr>
+      </table>
+      <div class="box good"><span class="t">한 줄 요약</span> 추가 지출 <b>0원</b>. 이미 내는 요금 안에 들어있는 숨은 기능을 켜서 <b>100% 활용</b>하는 것 — 우리 작업 환경에 <b>가장 빠르고 효율적으로 녹아드는</b> 방법입니다.</div>
+      <p class="lead">덧붙여, 이건 <b>우리만의 실험이 아닙니다.</b> 구글 워크스페이스를 쓰는 수많은 회사가 정확히 이 조합(워크스페이스 + AppSheet)으로 업무관리를 운영하고 있습니다 — 이미 검증된 길입니다.</p>
+    </section>
+
+    <section id="alternatives">
+      <h2>참고: 다른 회사들은 무엇을 쓰나 — 그리고 비용</h2>
+      <p class="lead">“워크스페이스 위에 얹는 업무관리 도구”는 크게 글로벌 SaaS와 국내 협업툴이 있습니다. 모두 좋은 도구지만, 공통적으로 <b>인당 월 구독료</b>가 들고 · <b>데이터가 외부 서비스에 저장</b>되며 · <b>또 다른 로그인·벤더</b>가 늘어납니다.</p>
+      <table>
+        <tr><th>도구</th><th>대략 인당 월</th><th>우리 규모(~10명) 연 환산</th><th>Workspace 연동</th></tr>
+        <tr><td><b>Asana</b> <span class="muted">글로벌 표준</span></td><td>$11~13</td><td>약 130~180만원</td><td>구글 SSO·드라이브·캘린더</td></tr>
+        <tr><td><b>Monday.com</b> <span class="muted">시각화 강점</span></td><td>$9~12</td><td>약 110~160만원</td><td>마켓플레이스 연동</td></tr>
+        <tr><td><b>Notion</b> <span class="muted">문서+DB</span></td><td>$10 안팎</td><td>약 120만원~</td><td>연동</td></tr>
+        <tr><td><b>Jira · ClickUp</b> <span class="muted">개발·올인원</span></td><td>$7~10</td><td>약 90~150만원</td><td>연동</td></tr>
+        <tr><td><b>스윗 · 두레이 · 잔디</b> <span class="muted">국내·한국어</span></td><td>약 5천~1만원</td><td>약 60~120만원</td><td>연동 (두레이는 전자결재 포함)</td></tr>
+        <tr><td><b>Flow</b> <span class="muted">우리가 쓰던 것</span></td><td>인당 월 수천원~</td><td>수십만원~</td><td>구글 파트너 연동</td></tr>
+      </table>
+      <p class="muted" style="font-size:12.5px">※ 대략 금액(2025 기준 · 환율·플랜에 따라 변동). 정확한 견적은 각 서비스 페이지에서 — 여기서는 <b>비교 감만</b> 잡으시면 됩니다.</p>
+      <div class="box"><span class="t">우리의 판단</span> 위 도구들은 검증된 좋은 제품이고, 회사가 더 커지거나 고급 기능이 꼭 필요해지면 충분한 선택지입니다. <b>다만 우리 상황</b>(이미 <b>유료 워크스페이스</b> 사용 + 이미 <b>Apps Script</b> 운용)에서는 — 같은 목적(업무 상태·댓글·추적)을 <b>추가 비용 0원 · 데이터는 우리 시트 · 새 벤더/로그인 없이</b> 달성하는 AppSheet 방식이 가장 합리적입니다. 위 도구들은 <b>연 수십~수백만원의 구독료</b>와 <b>데이터 외부 저장</b>이 따라옵니다.</div>
+      <div class="box good"><span class="t">정리</span> 선택지는 열려 있되, <b>우리에겐 이미 값을 치른 도구(워크스페이스)를 활용하는 것이 가장 빠르고 저렴</b>합니다. 유료 도구는 “정말 필요해지면” 그때 검토해도 늦지 않습니다.</div>
+    </section>
+
+    <section id="why-control">
+      <h2>3. “이거, 우리가 계속 다룰 수 있나?” — 통제권</h2>
+      <p class="lead">가장 중요한 질문입니다. 답은 <b>“네, 우리 손 안에 있습니다.”</b> 이유는 4가지입니다.</p>
+      <ol class="steps">
+        <li><b>데이터는 늘 쓰던 구글 시트 그대로.</b> 직원·업무 정보를 <b>구글 스프레드시트에서 직접, 엑셀처럼 대량으로</b> 작성·수정·붙여넣기 할 수 있습니다. 앱은 그 시트를 <b>보기 좋게 띄우고 알림을 더하는 “창”</b>일 뿐, 데이터를 따로 가두지 않습니다.</li>
+        <li><b>이미 다루는 기술의 연장.</b> 우리 팀은 이미 Apps Script를 구글 시트에 적용하고 있습니다. 완전히 새로운 미지의 기술이 아니라, <b>지금 쓰는 도구를 한 걸음 넓히는 것</b>입니다.</li>
+        <li><b>코딩 없이 “설정”으로.</b> AppSheet 화면 만들기는 메뉴에서 고르고 채우는 작업입니다. 프로그래밍이 아닙니다(이 매뉴얼의 Part B가 그 증거 — 따라 하면 됩니다).</li>
+        <li><b>되돌릴 수 있고, 특정인에 묶이지 않습니다.</b> 마음에 안 들면 앱을 꺼도 <b>데이터(시트)는 그대로 안전</b>합니다(락인 없음). 데이터가 표준 구글 시트라 <b>담당자가 바뀌어도 누구나 운영</b> 가능 — 그래서 이 매뉴얼을 남깁니다.</li>
+      </ol>
+      <div class="box good"><span class="t">결론</span> 새로운 시스템을 “배워야 하는” 부담이 아니라, <b>이미 회사가 유료로 쓰는 도구를 더 잘 쓰는</b> 일입니다. 데이터·통제권은 처음부터 끝까지 우리 손에 있습니다.</div>
+    </section>
+
+    <!-- ============ 완성 예상 모습 (목업) ============ -->
+    <style>
+      .mk-wrap{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+      .phone{width:236px;border:9px solid #1f2937;border-radius:30px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.18);background:#fff}
+      .phone .pbar{background:#2563eb;color:#fff;padding:9px 12px;font-size:13px;font-weight:700;display:flex;justify-content:space-between}
+      .phone .pbody{padding:9px;font-size:12px;background:#f8fafc;min-height:360px}
+      .pcard{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:8px 10px;margin:6px 0}
+      .pcard .ti{font-weight:700;font-size:12px;color:#111827}
+      .pcard .me{font-size:11px;color:#6b7280;margin-top:3px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+      .bdg{font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px}
+      .b1{background:#e0e7ff;color:#3730a3}.b2{background:#fef9c3;color:#854d0e}.b3{background:#dcfce7;color:#166534}.b4{background:#ffedd5;color:#9a3412}
+      .pcap{text-align:center;font-size:11px;color:#6b7280;margin-top:5px;line-height:1.5}
+      .pcol{background:#eef2ff;border-radius:9px;padding:6px;margin-bottom:7px}
+      .pcol .h{font-size:11px;font-weight:800;color:#3730a3;margin:1px 0 4px 3px}
+      .pf{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:6px 9px;margin:5px 0;font-size:11.5px}
+      .pf .l{font-size:9.5px;color:#9ca3af;display:block}
+      .pcm{background:#fff;border-left:3px solid #93c5fd;border-radius:0 8px 8px 0;padding:5px 9px;margin:4px 0;font-size:11px}
+      .pcm .w{font-weight:700;font-size:10.5px;color:#1e40af}
+      .pph{height:50px;border-radius:8px;background:linear-gradient(135deg,#94a3b8,#64748b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;margin:5px 0}
+    </style>
+    <section id="mockup">
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:14px 18px;margin:18px 0 6px">
+        <div style="font-size:18px;font-weight:800;color:#92400e">📱 완성 예상 모습 (목업)</div>
+        <div style="font-size:13.5px;color:#78350f;margin-top:4px">앞에서 보셨듯 <b>우리가 충분히 다룰 수 있는</b> 방식으로 만든 결과가 이렇게 됩니다. ⚠️ <b>기능은 개발하면서 추가·제거·변경될 수 있습니다.</b> 아래는 진행 여부 판단을 돕기 위한 <b>예시 화면(목업)</b>이며, 실제 최종본과 다를 수 있습니다.</div>
+      </div>
+      <div class="mk-wrap">
+        <div>
+          <div class="phone">
+            <div class="pbar"><span>내 업무</span><span>🔍 ＋</span></div>
+            <div class="pbody">
+              <div class="pcard"><div class="ti">A거래처 현장 점검 출장</div><div class="me">👤 김현장 <span class="bdg b2">진행중</span> <span style="color:#dc2626;font-weight:700">●높음</span> 📷</div></div>
+              <div class="pcard"><div class="ti">월간 점검 보고서 제출</div><div class="me">👤 홍길동 <span class="bdg b1">요청</span> 보통</div></div>
+              <div class="pcard"><div class="ti">장비 정기 점검 의뢰</div><div class="me">👤 김현장 <span class="bdg b4">검토대기</span> 보통 📷</div></div>
+              <div class="pcard"><div class="ti">직원 교육 일정 공지</div><div class="me">👤 홍길동 <span class="bdg b3">완료</span></div></div>
+            </div>
+          </div>
+          <div class="pcap">① <b>내 업무</b> — 내가 맡은 일만 모아보기<br>(담당자가 <b>이름</b>으로 표시)</div>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="pbar"><span>← 업무 상세</span><span>⋯</span></div>
+            <div class="pbody">
+              <div class="pf"><span class="l">제목</span>A거래처 현장 점검 출장</div>
+              <div class="pf"><span class="l">담당자 · 상태</span>김현장 · <span class="bdg b2">진행중</span></div>
+              <div class="pf"><span class="l">마감</span>2026-06-30</div>
+              <div class="pph">📷 현장 사진</div>
+              <div style="font-size:11px;font-weight:800;color:#374151;margin:8px 0 3px">💬 댓글</div>
+              <div class="pcm"><div class="w">김현장 · 10:24</div>현장 작업 완료, 이상 없음</div>
+              <div class="pcm"><div class="w">홍길동 · 11:02</div>보고서 양식대로 정리 부탁</div>
+              <div class="pf" style="text-align:center;color:#2563eb;font-weight:700">＋ 댓글 달기</div>
+            </div>
+          </div>
+          <div class="pcap">② <b>업무 상세</b> — 사진·댓글이 업무에 쌓임<br>(채팅처럼 묻히지 않음)</div>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="pbar"><span>업무 보드</span><span>≡</span></div>
+            <div class="pbody">
+              <div class="pcol"><div class="h">요청</div><div class="pcard"><div class="ti">점검 보고서</div><div class="me">홍길동</div></div></div>
+              <div class="pcol"><div class="h">진행중</div>
+                <div class="pcard"><div class="ti">현장 점검 출장</div><div class="me">김현장 📷</div></div>
+                <div class="pcard"><div class="ti">정기 점검 의뢰</div><div class="me">김현장</div></div>
+              </div>
+              <div class="pcol"><div class="h">완료</div><div class="pcard"><div class="ti">월간 정기점검</div><div class="me">홍길동</div></div></div>
+            </div>
+          </div>
+          <div class="pcap">③ <b>업무 보드</b> — 상태별 한눈에<br>(상태 버튼으로 이동)</div>
+        </div>
+      </div>
+      <div class="box good"><span class="t">한 줄</span> 흩어진 업무가 <b>카드로 정리</b>되고, 각 카드에 <b>담당·상태·사진·댓글</b>이 붙습니다. 휴대폰에서 현장 입력까지 — 이게 우리가 잃었던 “업무관리”입니다.</div>
+    </section>
+
+    <!-- =================== PART B : 제작 매뉴얼 (담당자용) =================== -->
+    <div style="background:#0f172a;color:#fff;border-radius:14px;padding:16px 20px;margin:30px 0 4px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#86efac">🔧 PART B · 담당자가 보는 부분</div>
+      <div style="font-size:20px;font-weight:800;margin-top:2px">따라하기 제작 매뉴얼</div>
+      <div style="font-size:13.5px;opacity:.85;margin-top:4px">여기부터는 실제로 앱을 만들고 고치는 단계입니다. 순서대로 따라 하면 됩니다.</div>
+    </div>
+
+    <!-- 기본 개념 -->
+    <section id="concept">
+      <h2>기본 개념 — 3가지만 알면 됩니다</h2>
+      <p class="lead">앱이 어떻게 만들어지는지 큰 그림입니다. (외울 필요 없음, 이해만)</p>
+      <table>
+        <tr><th>용어</th><th>쉽게 말하면</th></tr>
+        <tr><td><b>구글 시트</b> (데이터 저장소)</td><td>업무·직원·댓글이 <b>표(엑셀)로 저장</b>되는 곳. 진짜 데이터는 여기 다 있습니다.</td></tr>
+        <tr><td><b>AppSheet</b> (앱)</td><td>그 구글 시트를 읽어서 <b>휴대폰/PC 앱 화면</b>으로 보여주는 도구. 시트가 바뀌면 앱도 바뀝니다.</td></tr>
+        <tr><td><b>테이블 / 컬럼 / 뷰</b></td><td>테이블=시트의 한 탭, 컬럼=표의 열, 뷰=앱에서 보이는 화면(목록·상세·폼 등).</td></tr>
+      </table>
+      <div class="box good"><span class="t">핵심</span> 데이터는 <b>구글 시트</b>에, 화면은 <b>AppSheet</b>에. 둘은 항상 연결돼 있습니다. 그래서 <b>시트를 고치면 데이터가, AppSheet을 고치면 화면이</b> 바뀝니다.</div>
+    </section>
+
+    <!-- 사전 준비 -->
+    <section id="prep">
+      <h2>사전 준비</h2>
+      <ol class="steps">
+        <li><b>회사 구글 계정</b>(<code>@example.com</code>)으로 로그인돼 있어야 합니다. (개인 gmail 아님 — 알림·사진 기능이 회사 계정에서만 제대로 작동)</li>
+        <li>구글 워크스페이스 유료 플랜이면 <b>AppSheet이 무료로 포함</b>돼 있습니다. (관리자에게 "AppSheet Core 라이선스 있는지" 확인 가능)</li>
+        <li>크롬(Chrome) 브라우저 권장.</li>
+      </ol>
+      <div class="box warn"><span class="t">⚠️ 가장 중요한 주의</span> 모든 작업은 <b>회사 계정</b>으로 하세요. 화면 오른쪽 위 동그란 프로필이 회사 계정(예: 홍길동 / user@example.com)인지 항상 확인.</div>
+    </section>
+
+    <!-- PART 1 -->
+    <section id="p1">
+      <span class="part-tag">PART 1</span> <span class="status done">완료</span>
+      <h2>백엔드 구글 시트 만들기</h2>
+      <p class="lead">업무·직원·댓글을 담을 구글 시트를 먼저 만듭니다. 탭 3개, 각 탭의 첫 줄에 정해진 제목(헤더)을 넣습니다.</p>
+
+      <h3>1-1. 새 시트 만들고 이름 정하기</h3>
+      <ol class="steps">
+        <li>회사 계정으로 <span class="click">sheets.google.com</span> 접속 → <span class="click">+ 빈 스프레드시트</span></li>
+        <li>왼쪽 위 <span class="menu">제목 없는 스프레드시트</span>를 클릭하고 <span class="type">HJ_업무관리</span> 로 이름 변경</li>
+      </ol>
+
+      <h3>1-2. 탭 3개 만들기</h3>
+      <p>시트 아래쪽 탭 이름을 바꾸고, <span class="click">+</span> 버튼으로 탭을 추가합니다. (탭 이름을 더블클릭하면 수정됨)</p>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> HJ_업무관리 — Google Sheets</div>
+        <div class="body" style="display:flex;gap:8px;align-items:center">
+          <span class="ui-btn">+</span>
+          <span class="ui-btn hl">G_직원 ▾</span>
+          <span class="ui-btn hl">F_Tasks ▾</span>
+          <span class="ui-btn hl">F_Comments ▾</span>
+        </div>
+        <div class="cap">↑ 시트 맨 아래 탭 영역. 이름을 정확히 <b>G_직원 / F_Tasks / F_Comments</b> 로.</div>
+      </div>
+
+      <h3>1-3. 각 탭 1행에 헤더(열 제목) 입력</h3>
+      <p>각 탭을 열고 <b>A1 셀부터 오른쪽으로</b> 아래 제목들을 한 칸씩 입력합니다. (한 칸 입력 후 <span class="menu">Tab</span> 키로 옆 칸 이동)</p>
+      <table>
+        <tr><th>탭</th><th>1행에 넣을 제목(왼쪽부터 순서대로)</th></tr>
+        <tr><td><b>G_직원</b></td><td><code>직원_ID</code> · <code>이름</code> · <code>이메일</code> · <code>부서</code> · <code>직책</code> · <code>휴대전화</code> · <code>재직상태</code></td></tr>
+        <tr><td><b>F_Tasks</b><br>(업무 카드)</td><td><code>Task_ID</code> · <code>제목</code> · <code>상세내용</code> · <code>담당자</code> · <code>요청자</code> · <code>상태</code> · <code>우선순위</code> · <code>마감일</code> · <code>현장사진</code> · <code>첨부파일</code> · <code>생성일시</code> · <code>수정일시</code></td></tr>
+        <tr><td><b>F_Comments</b><br>(업무별 댓글)</td><td><code>Comment_ID</code> · <code>Task_ID</code> · <code>작성자</code> · <code>내용</code> · <code>첨부이미지</code> · <code>작성일시</code></td></tr>
+      </table>
+      <div class="box danger"><span class="t">⚠️ 절대 지키기</span> 헤더는 <b>1행에만</b>, 한 줄로. 셀 병합·제목줄 추가 금지(앱이 열을 못 읽음). 제목 글자는 위 표와 <b>똑같이</b> 적으세요.</div>
+
+      <h3>1-4. G_직원에 직원 명부 넣기</h3>
+      <ol class="steps">
+        <li>G_직원 탭 2행부터 직원을 한 명씩 입력. <code>직원_ID</code>는 <code>E0001, E0002…</code> 처럼 겹치지 않게.</li>
+        <li><b>이메일은 그 직원이 실제 로그인하는 회사 이메일과 똑같이</b> 적어야 "내 업무"가 작동합니다.</li>
+      </ol>
+      <div class="box"><span class="t">예시 데이터</span> <code>E0001 · 홍길동 · user@example.com · 관리 · 과장 · (빈칸) · 재직</code></div>
+      <div class="imgslot">📷 (회사 제공본에 넣을 실제 시트 캡쳐 자리)</div>
+    </section>
+
+    <!-- PART 2 -->
+    <section id="p2">
+      <span class="part-tag">PART 2</span> <span class="status done">완료</span>
+      <h2>AppSheet 앱 생성</h2>
+      <p class="lead">방금 만든 구글 시트를 AppSheet 앱으로 바꿉니다. 메뉴 한 번이면 됩니다.</p>
+      <ol class="steps">
+        <li>구글 시트 위쪽 메뉴에서 <span class="menu">확장 프로그램</span> 클릭</li>
+        <li>목록에서 <span class="menu">AppSheet</span> → <span class="click">앱 만들기</span></li>
+      </ol>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> 확장 프로그램 메뉴</div>
+        <div class="body">
+          <div class="ui-menu">
+            <div class="item">부가기능 <span>▸</span></div>
+            <div class="item">매크로 <span>▸</span></div>
+            <div class="item">Apps Script</div>
+            <div class="item hl">AppSheet <span>▸</span></div>
+          </div>
+          <span style="margin:0 10px;color:#9ca3af">→</span>
+          <div class="ui-menu" style="vertical-align:top">
+            <div class="item hl">앱 만들기</div>
+            <div class="item">샘플 앱 보기</div>
+          </div>
+        </div>
+        <div class="cap">확장 프로그램 → AppSheet → 앱 만들기</div>
+      </div>
+
+      <h3>2-1. (처음이면) 구글 로그인·권한 허용 2단계</h3>
+      <p>AppSheet을 처음 쓰면 권한 동의 창이 뜹니다. <b>회사 계정인지 확인</b>하고 진행하세요.</p>
+      <ol class="steps">
+        <li><b>1번 창</b>(이름·이메일 공유): <span class="click">계속</span></li>
+        <li><b>2번 창</b>(Drive·Sheets 접근): <span class="click">허용</span></li>
+      </ol>
+      <div class="box warn"><span class="t">왜 이 권한이 필요한가</span> AppSheet은 구글 시트를 읽고 써야 앱이 돌아갑니다. 그래서 Drive·Sheets 접근 권한을 한 번 허용합니다. (구글 계정 → 보안에서 언제든 취소 가능) — 회사 계정으로만 하세요.</div>
+      <p>잠시 후 <b>"Your HJ_업무관리 app is ready!"</b> 와 함께 편집기가 열리면 성공입니다. 안내 창은 <span class="click">✕</span>로 닫습니다.</p>
+      <div class="imgslot">📷 (앱 생성 완료 화면 캡쳐 자리)</div>
+    </section>
+
+    <!-- PART 3 -->
+    <section id="p3">
+      <span class="part-tag">PART 3</span> <span class="status done">완료</span>
+      <h2>테이블 3개 연결</h2>
+      <p class="lead">앱을 만들면 처음엔 <b>G_직원</b> 하나만 연결됩니다. 나머지 두 탭(F_Tasks·F_Comments)을 추가합니다.</p>
+      <ol class="steps">
+        <li>편집기 <b>왼쪽 세로 아이콘 줄</b>에서 <span class="click">Data(표 모양 아이콘)</span> 클릭</li>
+        <li>"Data" 글자 옆 <span class="click">+</span> 클릭 → "Add data" 창이 열림</li>
+        <li>위쪽 추천 칩에서 <span class="click">Add Table "F_Tasks"</span> 클릭 → 다음 창에서 <span class="click">Add to app</span></li>
+        <li>다시 <span class="click">+</span> → <span class="click">Add Table "F_Comments"</span> → <span class="click">Add to app</span></li>
+      </ol>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Add data 창</div>
+        <div class="body">
+          <div style="font-size:12px;color:#6b7280;margin-bottom:6px">SUGGESTIONS: ADD MORE DATA…</div>
+          <span class="ui-btn hl">Add Table "F_Tasks"</span>
+          <span class="ui-btn hl">Add Table "F_Comments"</span>
+        </div>
+        <div class="cap">추천 칩을 누르면 자동으로 그 탭이 테이블로 추가됩니다.</div>
+      </div>
+      <div class="box good"><span class="t">확인</span> 왼쪽 Data 목록에 <b>F_Comments · F_Tasks · G_직원</b> 3개가 보이면 완료.</div>
+      <div class="imgslot">📷 (테이블 3개 연결 화면 캡쳐 자리)</div>
+    </section>
+
+    <!-- PART 4 -->
+    <section id="p4">
+      <span class="part-tag">PART 4</span> <span class="status prog">진행 중</span>
+      <h2>컬럼 타입 설정</h2>
+      <p class="lead">AppSheet이 자동으로 정한 컬럼 종류(타입)를 우리 설계에 맞게 바로잡습니다. 이게 앱이 똑똑하게 작동하는 핵심입니다.</p>
+
+      <h3>4-0. 컬럼 편집하는 기본 방법 (공통)</h3>
+      <ol class="steps">
+        <li>왼쪽 Data 목록에서 <span class="click">테이블 선택</span> (예: F_Tasks)</li>
+        <li>가운데 컬럼 목록에서 바꿀 컬럼 왼쪽의 <span class="click">연필(✏️) 아이콘</span> 클릭 → 설정 창이 열림</li>
+        <li><span class="menu">Type</span> 칸을 클릭하고 <b>타입 이름을 그대로 타이핑</b>하면 자동 선택됩니다 (예: <span class="type">Ref</span>, <span class="type">Enum</span>, <span class="type">Image</span>)</li>
+        <li>아래 <b>Type Details</b>에서 세부 설정 → 오른쪽 위 <span class="click">Done</span></li>
+        <li>모든 변경 후 오른쪽 위 파란 <span class="click">SAVE</span>로 저장</li>
+      </ol>
+      <div class="box"><span class="t">💡 꿀팁</span> Type 칸은 드롭다운이 잘 안 보일 때가 있는데, <b>클릭 후 그냥 타입 이름을 입력</b>하면 됩니다(예: "Ref" 입력 → Ref 선택됨). Source table 등 다른 선택 칸도 같은 방식.</div>
+
+      <h3>4-1. F_Tasks 컬럼 설정 (목표값)</h3>
+      <table>
+        <tr><th>컬럼</th><th>바꿀 타입</th><th>세부 설정</th><th>상태</th></tr>
+        <tr><td>담당자</td><td><span class="pill">Ref</span></td><td>Source table = <b>G_직원</b></td><td><span class="status done">완료</span></td></tr>
+        <tr><td>요청자</td><td><span class="pill">Ref</span></td><td>Source table = <b>G_직원</b></td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>상태</td><td><span class="pill">Enum</span></td><td>Values = 요청 / 진행중 / 검토대기 / 보류 / 완료</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>우선순위</td><td><span class="pill">Enum</span></td><td>Values = 높음 / 보통 / 낮음</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>마감일</td><td><span class="pill">Date</span></td><td>—</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>현장사진</td><td><span class="pill">Image</span></td><td>휴대폰 카메라 촬영 첨부 (Type에 <code>Image</code> 입력 → Done)</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>첨부파일</td><td><span class="pill">File</span></td><td>—</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>생성일시</td><td><span class="pill">DateTime</span></td><td>Initial value = <code>NOW()</code></td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>Task_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code> (새 업무에 자동 번호)</td><td><span class="status todo">예정</span></td></tr>
+      </table>
+
+      <h4 style="margin:18px 0 6px;font-size:15px">예시: 담당자를 "Ref(직원 참조)"로 바꾸기 — 완료된 단계</h4>
+      <ol class="steps">
+        <li>F_Tasks 테이블 → <code>담당자</code> 줄의 <span class="click">연필 ✏️</span></li>
+        <li><span class="menu">Type</span> 클릭 → <span class="type">Ref</span> 입력</li>
+        <li>아래 <b>Type Details → Source table</b> 칸 클릭 → <span class="type">G</span> 입력 → <b>G_직원</b> 선택</li>
+        <li><span class="click">Done</span></li>
+      </ol>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> 컬럼 설정 — F_Tasks : 담당자</div>
+        <div class="body">
+          <div style="font-size:12px;color:#6b7280">Type (컬럼 종류)</div>
+          <div class="ui-field">Ref <span style="color:#9ca3af">▾</span></div>
+          <div style="font-size:12px;color:#6b7280;margin-top:8px">Type Details — Source table</div>
+          <div class="ui-field" style="max-width:240px">G_직원 <span style="color:#9ca3af">▾</span></div>
+        </div>
+        <div class="cap">담당자 = Ref → G_직원. 이렇게 하면 담당자 칸에서 직원을 골라 넣을 수 있고, 이름이 자동 표시됩니다.</div>
+      </div>
+      <div class="box good"><span class="t">왜 Ref인가</span> 담당자에 <b>이름을 직접 타이핑하지 않고</b> 직원 명부(G_직원)에서 고르게 됩니다. → 같은 정보를 두 번 입력하지 않고(오타 없음), "내 업무"·알림이 작동합니다.</div>
+
+      <h4 style="margin:18px 0 6px;font-size:15px">예시: 상태를 "Enum(드롭다운)"으로 만들기 — 완료된 단계</h4>
+      <ol class="steps">
+        <li>F_Tasks 테이블 → <code>상태</code> 줄의 <span class="click">연필 ✏️</span></li>
+        <li><span class="menu">Type</span> 클릭 → <span class="type">Enum</span> 입력</li>
+        <li>아래 <b>Type Details → Values</b>에서 <span class="click">Add</span>를 누르고 값을 한 개씩 입력. 5번 반복:<br>
+          <span class="type">요청</span> · <span class="type">진행중</span> · <span class="type">검토대기</span> · <span class="type">보류</span> · <span class="type">완료</span></li>
+        <li>(원하면) <b>Input mode</b>에서 <span class="click">Buttons</span> 선택 → 버튼으로 상태 변경</li>
+        <li><span class="click">Done</span> → 오른쪽 위 <span class="click">SAVE</span></li>
+      </ol>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> 컬럼 설정 — F_Tasks : 상태 (Enum)</div>
+        <div class="body">
+          <div style="font-size:12px;color:#6b7280">Type Details — Values (값 목록)</div>
+          <div class="ui-field" style="max-width:260px">요청 <span style="color:#cbd5e1">🗑</span></div>
+          <div class="ui-field" style="max-width:260px">진행중 <span style="color:#cbd5e1">🗑</span></div>
+          <div class="ui-field" style="max-width:260px">검토대기 <span style="color:#cbd5e1">🗑</span></div>
+          <div class="ui-field" style="max-width:260px">보류 <span style="color:#cbd5e1">🗑</span></div>
+          <div class="ui-field" style="max-width:260px">완료 <span style="color:#cbd5e1">🗑</span></div>
+          <span class="ui-btn hl">+ Add</span>
+        </div>
+        <div class="cap">「Add」를 누를 때마다 빈 칸이 생깁니다. 거기에 값을 하나씩 입력.</div>
+      </div>
+
+      <h3>4-2. F_Comments 컬럼 설정 — 댓글을 업무에 붙이기 (핵심)</h3>
+      <p>댓글(F_Comments)이 어느 업무(F_Tasks)에 달린 것인지 연결합니다. <b>이게 "업무 카드 안에 댓글이 보이는" 핵심</b>입니다.</p>
+      <table>
+        <tr><th>컬럼</th><th>바꿀 타입</th><th>세부 설정</th><th>상태</th></tr>
+        <tr><td>Task_ID</td><td><span class="pill">Ref</span></td><td>Source table = <b>F_Tasks</b> (어느 업무의 댓글인지)</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>작성자</td><td><span class="pill">Ref</span></td><td>Source table = G_직원</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>내용</td><td><span class="pill">LongText</span></td><td>긴 글</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>첨부이미지</td><td><span class="pill">Image</span></td><td>현장 사진</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>Comment_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code></td><td><span class="status todo">예정</span></td></tr>
+      </table>
+      <div class="box good"><span class="t">방법은 똑같습니다</span> F_Comments 테이블 선택 → <code>Task_ID</code> 연필 → Type에 <span class="type">Ref</span> → Source table에 <span class="type">F</span> 입력해서 <b>F_Tasks</b> 선택 → Done → SAVE.</div>
+
+      <div class="box"><span class="t">✅ 지금까지 하면</span> 업무를 만들고(담당자 선택·상태 드롭다운), 업무를 열어 댓글을 달면 그 업무에 붙습니다. <b>핵심 흐름이 작동</b>합니다. 나머지(우선순위·사진·자동번호 등)와 화면(뷰) 꾸미기는 아래에서 이어집니다.</div>
+
+      <p class="lead" style="margin-top:18px">▸ 요청자·우선순위·이미지·자동번호(키), 그리고 <b>화면(뷰) 만들기</b>는 다음 작업에서 이 문서에 계속 추가됩니다.</p>
+    </section>
+
+    <!-- PART 5/6 placeholder -->
+    <section id="p5">
+      <span class="part-tag">PART 5</span> <span class="status todo">작성 예정</span>
+      <h2>화면(뷰) 만들기</h2>
+      <p class="lead">내 업무 목록 · 업무 상세(+댓글) · 업무 보드(칸반) · 새 업무 입력 폼 — 4개 화면을 만드는 단계. (제작하면서 이어서 기록)</p>
+    </section>
+    <section id="p6">
+      <span class="part-tag">PART 6</span> <span class="status todo">작성 예정</span>
+      <h2>알림 · 전자결재 (선택)</h2>
+      <p class="lead">담당 배정·새 댓글·마감 알림과, 떼었다 붙일 수 있는 전자결재 모듈. (제작하면서 이어서 기록)</p>
+    </section>
+
+    <footer>
+      ○○산업(주) 업무관리 앱 제작설명서 · 업무관리 앱 안내서<br>
+      이 문서는 제작 과정을 단계별로 누적 기록한 것입니다. 최종 완료 후 회사 제공용으로 편집·정리하여 사용하세요.
+      화면 그림(목업)은 이해를 돕기 위한 단순 재현이며, 📷 자리에는 실제 캡쳐를 끼워 넣을 수 있습니다.
+    </footer>
+  </div>
+</body>
+</html>
