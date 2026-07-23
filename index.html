@@ -106,7 +106,9 @@
       <a href="#platforms"><span class="n">·</span>폰·윈도우·맥</a>
       <a href="#alternatives"><span class="n">·</span>다른 도구·비용 비교</a>
       <a href="#why-control"><span class="n">·</span>우리가 다룰 수 있나?</a>
-      <a href="#mockup" class="part" style="color:#fbbf24;margin-top:14px">📱 완성 예상 모습 <span style="font-weight:400;font-size:11px;color:#64748b">(목업)</span></a>
+      <a href="#mockup" class="part" style="color:#fbbf24;margin-top:14px">📱💻 완성 예상 모습 <span style="font-weight:400;font-size:11px;color:#64748b">(목업)</span></a>
+      <a href="#mockup-phone"><span class="n">·</span>휴대폰 화면</a>
+      <a href="#mockup-pc"><span class="n">·</span>컴퓨터 화면</a>
       <a class="part" style="color:#86efac;margin-top:14px">🔧 제작 매뉴얼 <span style="font-weight:400;font-size:11px;color:#64748b">(담당자용)</span></a>
       <a href="#concept"><span class="n">·</span>기본 개념</a>
       <a href="#prep"><span class="n">·</span>사전 준비</a>
@@ -349,12 +351,49 @@
       .pcm{background:#fff;border-left:3px solid #93c5fd;border-radius:0 8px 8px 0;padding:5px 9px;margin:4px 0;font-size:11px}
       .pcm .w{font-weight:700;font-size:10.5px;color:#1e40af}
       .pph{height:50px;border-radius:8px;background:linear-gradient(135deg,#94a3b8,#64748b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;margin:5px 0}
+      /* ── 컴퓨터(윈도우·맥) 브라우저 창 목업 ── */
+      .mkh{margin:26px 0 2px;font-size:16px;font-weight:800;color:#0f172a}
+      .mksub{font-size:13px;color:#64748b;margin:0 0 10px}
+      .win{border:1px solid #cbd5e1;border-radius:11px;overflow:hidden;background:#fff;
+           box-shadow:0 12px 30px rgba(15,23,42,.13);margin:10px 0 4px;max-width:100%}
+      .wbar{background:#e8ecf1;border-bottom:1px solid #cbd5e1;padding:7px 11px;display:flex;align-items:center;gap:9px}
+      .wdots{display:flex;gap:5px;flex:0 0 auto}
+      .wdots i{width:10px;height:10px;border-radius:50%;display:block}
+      .wurl{flex:1;background:#fff;border:1px solid #d5dbe3;border-radius:6px;padding:2px 10px;
+            font-size:11px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .wbody{display:flex;min-height:250px;font-size:12.5px;color:#111827}
+      .wnav{flex:0 0 132px;background:#f8fafc;border-right:1px solid #e5e7eb;padding:10px 8px}
+      .wlogo{font-size:11px;font-weight:800;color:#2563eb;padding:2px 8px 9px}
+      .wnav a,.wnav div.wi{display:block;padding:7px 9px;border-radius:7px;color:#475569;margin-bottom:2px}
+      .wnav .on{background:#e0e7ff;color:#1e3a8a;font-weight:800}
+      .wmain{flex:1;padding:12px 14px;min-width:0}
+      .wtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+      .wtitle{font-weight:800;font-size:14px}
+      .wbtn{background:#2563eb;color:#fff;border-radius:7px;padding:4px 11px;font-size:11.5px;font-weight:700}
+      table.wt{width:100%;border-collapse:collapse;font-size:11.5px;margin:0}
+      table.wt th{background:#f1f5f9;color:#475569;font-size:10.5px;font-weight:800;text-align:left;
+                  padding:6px 8px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+      table.wt td{padding:7px 8px;border-bottom:1px solid #eef2f6;vertical-align:middle;white-space:nowrap}
+      table.wt tr.sel td{background:#eff6ff}
+      .wscroll{overflow-x:auto}
+      .wboard{display:flex;gap:9px;align-items:flex-start}
+      .wbcol{flex:1;min-width:0;background:#f1f5f9;border-radius:9px;padding:7px}
+      .wbcol .h{font-size:10.5px;font-weight:800;color:#334155;margin:1px 0 6px 3px;display:flex;justify-content:space-between}
+      .wsplit{display:flex;gap:12px;align-items:flex-start}
+      .wsplit>div{flex:1;min-width:0}
     </style>
     <section id="mockup">
       <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:14px 18px;margin:18px 0 6px">
         <div style="font-size:18px;font-weight:800;color:#92400e">📱 완성 예상 모습 (목업)</div>
         <div style="font-size:13.5px;color:#78350f;margin-top:4px">앞에서 보셨듯 <b>우리가 충분히 다룰 수 있는</b> 방식으로 만든 결과가 이렇게 됩니다. ⚠️ <b>기능은 개발하면서 추가·제거·변경될 수 있습니다.</b> 아래는 진행 여부 판단을 돕기 위한 <b>예시 화면(목업)</b>이며, 실제 최종본과 다를 수 있습니다.</div>
+        <div style="font-size:13px;color:#78350f;margin-top:7px;border-top:1px solid #fde68a;padding-top:7px">
+          <b>같은 시스템, 두 가지 모습</b> — 아래에 <b>휴대폰 3장</b>과 <b>컴퓨터(윈도우·맥) 3장</b>을 함께 실었습니다.
+          화면 크기에 맞춰 <b>배치가 자동으로 달라질 뿐</b>, 데이터도 기능도 하나입니다.
+        </div>
       </div>
+
+      <h3 class="mkh" id="mockup-phone">📱 휴대폰 화면 — 현장에서</h3>
+      <p class="mksub">좁은 화면이라 <b>세로 한 줄</b>로 쌓이고, 아래에 이동 탭이 붙습니다. 사진 촬영·오프라인 입력은 폰에서만 됩니다.</p>
       <div class="mk-wrap">
         <div>
           <div class="phone">
@@ -399,7 +438,136 @@
           <div class="pcap">③ <b>업무 보드</b> — 상태별 한눈에<br>(상태 버튼으로 이동)</div>
         </div>
       </div>
-      <div class="box good"><span class="t">한 줄</span> 흩어진 업무가 <b>카드로 정리</b>되고, 각 카드에 <b>담당·상태·사진·댓글</b>이 붙습니다. 휴대폰에서 현장 입력까지 — 이게 우리가 잃었던 “업무관리”입니다.</div>
+
+      <!-- ── 컴퓨터(윈도우·맥) ── -->
+      <h3 class="mkh" id="mockup-pc">💻 컴퓨터(윈도우·맥) 화면 — 사무실에서</h3>
+      <p class="mksub"><b>아무것도 설치하지 않습니다.</b> 인터넷 창 주소만 열고 회사 계정으로 로그인하면 끝입니다.
+        화면이 넓어 <b>왼쪽 메뉴 + 오른쪽 표</b>가 함께 보이고, 폰보다 훨씬 많은 업무가 한 번에 들어옵니다.</p>
+
+      <div class="win">
+        <div class="wbar">
+          <span class="wdots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
+          <span class="wurl">🔒 www.appsheet.com &nbsp;·&nbsp; 업무관리</span>
+        </div>
+        <div class="wbody">
+          <div class="wnav">
+            <div class="wlogo">■ 업무관리</div>
+            <div class="wi on">내 업무</div>
+            <div class="wi">직원</div>
+            <div class="wi">전체 업무</div>
+          </div>
+          <div class="wmain">
+            <div class="wtop"><span class="wtitle">내 업무 <span style="color:#94a3b8;font-weight:400;font-size:11.5px">4건</span></span>
+              <span class="wbtn">＋ 새 업무</span></div>
+            <div class="wscroll"><table class="wt">
+              <tr><th>제목</th><th>담당자</th><th>상태</th><th>우선순위</th><th>마감일</th><th>첨부</th></tr>
+              <tr class="sel"><td><b>A거래처 현장 점검 출장</b></td><td>김현장</td><td><span class="bdg b2">진행중</span></td><td style="color:#dc2626;font-weight:700">●높음</td><td>2026-06-30</td><td>📷</td></tr>
+              <tr><td>월간 점검 보고서 제출</td><td>홍길동</td><td><span class="bdg b1">요청</span></td><td>보통</td><td>2026-07-05</td><td></td></tr>
+              <tr><td>장비 정기 점검 의뢰</td><td>김현장</td><td><span class="bdg b4">검토대기</span></td><td>보통</td><td>2026-07-10</td><td>📷</td></tr>
+              <tr><td>직원 교육 일정 공지</td><td>홍길동</td><td><span class="bdg b3">완료</span></td><td>낮음</td><td>2026-06-20</td><td>📎</td></tr>
+            </table></div>
+          </div>
+        </div>
+      </div>
+      <div class="pcap" style="text-align:left">④ <b>내 업무 (컴퓨터)</b> — 폰에서는 한 줄에 하나씩 쌓이던 것이,
+        컴퓨터에서는 <b>표 형태로 여러 건이 한눈에</b> 들어옵니다. 마감일·우선순위까지 같은 줄에서 비교됩니다.</div>
+
+      <div class="win">
+        <div class="wbar">
+          <span class="wdots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
+          <span class="wurl">🔒 www.appsheet.com &nbsp;·&nbsp; 업무관리 &nbsp;›&nbsp; A거래처 현장 점검 출장</span>
+        </div>
+        <div class="wbody">
+          <div class="wnav">
+            <div class="wlogo">■ 업무관리</div>
+            <div class="wi on">내 업무</div>
+            <div class="wi">직원</div>
+            <div class="wi">전체 업무</div>
+          </div>
+          <div class="wmain">
+            <div class="wtop"><span class="wtitle">A거래처 현장 점검 출장</span>
+              <span style="font-size:11px;color:#64748b">✏️ 편집 &nbsp; ⋯</span></div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px">
+              <span style="border:1px solid #c7d2fe;color:#3730a3;background:#eef2ff;border-radius:999px;padding:3px 11px;font-size:11px;font-weight:700">요청</span>
+              <span style="border:1px solid #94a3b8;color:#94a3b8;border-radius:999px;padding:3px 11px;font-size:11px">진행중 (현재)</span>
+              <span style="border:1px solid #fed7aa;color:#9a3412;background:#fff7ed;border-radius:999px;padding:3px 11px;font-size:11px;font-weight:700">검토대기</span>
+              <span style="border:1px solid #fecaca;color:#b91c1c;background:#fef2f2;border-radius:999px;padding:3px 11px;font-size:11px;font-weight:700">보류</span>
+              <span style="border:1px solid #bbf7d0;color:#166534;background:#f0fdf4;border-radius:999px;padding:3px 11px;font-size:11px;font-weight:700">완료</span>
+            </div>
+            <div class="wsplit">
+              <div>
+                <div class="pf"><span class="l">담당자</span>김현장</div>
+                <div class="pf"><span class="l">요청자</span>홍길동</div>
+                <div class="pf"><span class="l">상태 · 우선순위</span><span class="bdg b2">진행중</span> · <span style="color:#dc2626;font-weight:700">높음</span></div>
+                <div class="pf"><span class="l">마감일</span>2026-06-30</div>
+                <div class="pph">📷 현장 사진</div>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:800;color:#374151;margin:2px 0 4px">💬 댓글</div>
+                <div class="pcm"><div class="w">김현장 · 10:24</div>현장 작업 완료, 이상 없음</div>
+                <div class="pcm"><div class="w">홍길동 · 11:02</div>보고서 양식대로 정리 부탁</div>
+                <div class="pf" style="text-align:center;color:#2563eb;font-weight:700">＋ 댓글 달기</div>
+                <div style="font-size:11px;font-weight:800;color:#374151;margin:11px 0 4px">🕘 변경 이력</div>
+                <div style="font-size:10.5px;color:#64748b;line-height:1.9;background:#f8fafc;border-radius:7px;padding:6px 9px">
+                  홍길동 · 상태 요청 → 진행중<br>홍길동 · 담당자 (없음) → 김현장
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pcap" style="text-align:left">⑤ <b>업무 상세 (컴퓨터)</b> — 넓은 화면에서는 <b>내용과 댓글이 좌우로 나란히</b> 보입니다.
+        위쪽 <b>상태 버튼</b>을 한 번 누르면 상태가 바뀌고, 오른쪽 <b>🕘 변경 이력</b>에 <b>누가 무엇을 언제 바꿨는지</b> 자동으로 쌓입니다.</div>
+
+      <div class="win">
+        <div class="wbar">
+          <span class="wdots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
+          <span class="wurl">🔒 www.appsheet.com &nbsp;·&nbsp; 업무관리 &nbsp;›&nbsp; 전체 업무</span>
+        </div>
+        <div class="wbody">
+          <div class="wnav">
+            <div class="wlogo">■ 업무관리</div>
+            <div class="wi">내 업무</div>
+            <div class="wi">직원</div>
+            <div class="wi on">전체 업무</div>
+          </div>
+          <div class="wmain">
+            <div class="wtop"><span class="wtitle">전체 업무 <span style="color:#94a3b8;font-weight:400;font-size:11.5px">상태별 보드</span></span>
+              <span class="wbtn">＋ 새 업무</span></div>
+            <div class="wboard">
+              <div class="wbcol"><div class="h"><span>요청</span><span>1</span></div>
+                <div class="pcard"><div class="ti">월간 점검 보고서 제출</div><div class="me">홍길동</div></div>
+              </div>
+              <div class="wbcol"><div class="h"><span>진행중</span><span>2</span></div>
+                <div class="pcard"><div class="ti">A거래처 현장 점검 출장</div><div class="me">김현장 📷</div></div>
+                <div class="pcard"><div class="ti">비품 신청서 검토</div><div class="me">홍길동</div></div>
+              </div>
+              <div class="wbcol"><div class="h"><span>검토대기</span><span>1</span></div>
+                <div class="pcard"><div class="ti">장비 정기 점검 의뢰</div><div class="me">김현장 📷</div></div>
+              </div>
+              <div class="wbcol"><div class="h"><span>완료</span><span>1</span></div>
+                <div class="pcard"><div class="ti">직원 교육 일정 공지</div><div class="me">홍길동</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pcap" style="text-align:left">⑥ <b>업무 보드 (컴퓨터)</b> — 폰에서는 위아래로 이어지던 상태 묶음이,
+        컴퓨터에서는 <b>가로로 나란히</b> 놓여 <b>어디에 일이 몰려 있는지</b>가 바로 보입니다.</div>
+
+      <div class="box"><span class="t">두 화면의 차이 정리</span>
+        <table style="margin-top:6px">
+          <tr><th></th><th>📱 휴대폰</th><th>💻 컴퓨터(윈도우·맥)</th></tr>
+          <tr><td><b>준비</b></td><td>무료 앱 1개 설치(1회)</td><td><b>설치 없음</b> — 인터넷 창만</td></tr>
+          <tr><td><b>목록</b></td><td>카드가 세로로 한 줄씩</td><td><b>표</b>로 여러 건 한눈에</td></tr>
+          <tr><td><b>보드</b></td><td>상태 묶음이 위아래로</td><td>상태 묶음이 <b>가로로 나란히</b></td></tr>
+          <tr><td><b>상세</b></td><td>내용 아래로 스크롤</td><td>내용·댓글 <b>좌우 동시</b></td></tr>
+          <tr><td><b>현장 기능</b></td><td><b>사진·오프라인 입력 가능</b></td><td>브라우저라 안 됨</td></tr>
+          <tr><td><b>데이터</b></td><td colspan="2" style="text-align:center"><b>완전히 동일 — 폰에서 넣으면 컴퓨터에 즉시 보입니다</b></td></tr>
+        </table>
+      </div>
+
+      <div class="box good"><span class="t">한 줄</span> 흩어진 업무가 <b>카드로 정리</b>되고, 각 카드에 <b>담당·상태·사진·댓글·변경 이력</b>이 붙습니다. <b>사무실에서는 컴퓨터로, 현장에서는 휴대폰으로</b> — 같은 업무를 같은 화면에서 봅니다. 이게 우리가 잃었던 “업무관리”입니다.</div>
     </section>
 
     <!-- =================== PART B : 제작 매뉴얼 (담당자용) =================== -->
