@@ -727,14 +727,14 @@
       <table>
         <tr><th>컬럼</th><th>바꿀 타입</th><th>세부 설정</th><th>상태</th></tr>
         <tr><td>담당자</td><td><span class="pill">Ref</span></td><td>Source table = <b>G_직원</b></td><td><span class="status done">완료</span></td></tr>
-        <tr><td>요청자</td><td><span class="pill">Ref</span></td><td>Source table = <b>G_직원</b></td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>요청자</td><td><span class="pill">Ref</span></td><td>Source table = <b>G_직원</b></td><td><span class="status done">완료</span></td></tr>
         <tr><td>상태</td><td><span class="pill">Enum</span></td><td>Values = 요청 / 진행중 / 검토대기 / 보류 / 완료</td><td><span class="status done">완료</span></td></tr>
-        <tr><td>우선순위</td><td><span class="pill">Enum</span></td><td>Values = 높음 / 보통 / 낮음</td><td><span class="status todo">예정</span></td></tr>
-        <tr><td>마감일</td><td><span class="pill">Date</span></td><td>—</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>우선순위</td><td><span class="pill">Enum</span></td><td>Values = 높음 / 보통 / 낮음</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>마감일</td><td><span class="pill">Date</span></td><td>—</td><td><span class="status done">완료</span></td></tr>
         <tr><td>현장사진</td><td><span class="pill">Image</span></td><td>휴대폰 카메라 촬영 첨부 (Type에 <code>Image</code> 입력 → Done)</td><td><span class="status done">완료</span></td></tr>
-        <tr><td>첨부파일</td><td><span class="pill">File</span></td><td>—</td><td><span class="status todo">예정</span></td></tr>
-        <tr><td>생성일시</td><td><span class="pill">DateTime</span></td><td>Initial value = <code>NOW()</code></td><td><span class="status todo">예정</span></td></tr>
-        <tr><td>Task_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code> (새 업무에 자동 번호)</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>첨부파일</td><td><span class="pill">File</span></td><td>—</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>생성일시</td><td><span class="pill">DateTime</span></td><td>Initial value = <code>NOW()</code></td><td><span class="status done">완료</span></td></tr>
+        <tr><td>Task_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code> (새 업무에 자동 번호)</td><td><span class="status done">완료</span></td></tr>
       </table>
 
       <h4 style="margin:18px 0 6px;font-size:15px">예시: 담당자를 "Ref(직원 참조)"로 바꾸기 — 완료된 단계</h4>
@@ -784,10 +784,10 @@
       <table>
         <tr><th>컬럼</th><th>바꿀 타입</th><th>세부 설정</th><th>상태</th></tr>
         <tr><td>Task_ID</td><td><span class="pill">Ref</span></td><td>Source table = <b>F_Tasks</b> (어느 업무의 댓글인지)</td><td><span class="status done">완료</span></td></tr>
-        <tr><td>작성자</td><td><span class="pill">Ref</span></td><td>Source table = G_직원</td><td><span class="status todo">예정</span></td></tr>
-        <tr><td>내용</td><td><span class="pill">LongText</span></td><td>긴 글</td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>작성자</td><td><span class="pill">Ref</span></td><td>Source table = G_직원</td><td><span class="status done">완료</span></td></tr>
+        <tr><td>내용</td><td><span class="pill">LongText</span></td><td>긴 글</td><td><span class="status done">완료</span></td></tr>
         <tr><td>첨부이미지</td><td><span class="pill">Image</span></td><td>현장 사진</td><td><span class="status todo">예정</span></td></tr>
-        <tr><td>Comment_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code></td><td><span class="status todo">예정</span></td></tr>
+        <tr><td>Comment_ID</td><td><span class="pill">Text(Key)</span></td><td>Initial value = <code>UNIQUEID()</code></td><td><span class="status done">완료</span></td></tr>
       </table>
       <div class="box good"><span class="t">방법은 똑같습니다</span> F_Comments 테이블 선택 → <code>Task_ID</code> 연필 → Type에 <span class="type">Ref</span> → Source table에 <span class="type">F</span> 입력해서 <b>F_Tasks</b> 선택 → Done → SAVE.</div>
 
