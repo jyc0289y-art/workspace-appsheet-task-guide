@@ -116,7 +116,7 @@
       <a href="#p2"><span class="n">2</span>AppSheet 앱 생성</a>
       <a href="#p3"><span class="n">3</span>테이블 3개 연결</a>
       <a href="#p4"><span class="n">4</span>컬럼 타입 설정</a>
-      <a href="#p5"><span class="n">5</span>화면(뷰) 만들기 <span class="status todo">예정</span></a>
+      <a href="#p5"><span class="n">5</span>화면(뷰) 만들기 <span class="status done">완료</span></a>
       <a href="#p6"><span class="n">6</span>알림·전자결재 <span class="status todo">예정</span></a>
     </nav>
     <div class="meta">○○산업(주) · 안내 문서<br>최종 수정: 2026-06-23</div>
@@ -798,9 +798,87 @@
 
     <!-- PART 5/6 placeholder -->
     <section id="p5">
-      <span class="part-tag">PART 5</span> <span class="status todo">작성 예정</span>
-      <h2>화면(뷰) 만들기</h2>
-      <p class="lead">내 업무 목록 · 업무 상세(+댓글) · 업무 보드(칸반) · 새 업무 입력 폼 — 4개 화면을 만드는 단계. (제작하면서 이어서 기록)</p>
+      <span class="part-tag">PART 5</span> <span class="status done">완료</span>
+      <h2>화면(뷰) 만들기 · 다듬기</h2>
+      <p class="lead">데이터(테이블·컬럼)가 준비되면, 사람이 보는 <b>화면(뷰)</b>을 만듭니다. AppSheet 왼쪽 메뉴의 <b>📱 UX</b>(휴대폰 아이콘)에서 작업합니다. 아래 순서대로 하면 "내 업무 / 업무 보드 / 댓글"이 보기 좋게 정리됩니다.</p>
+
+      <h3>5-0. 화면 편집 기본 (공통)</h3>
+      <ol class="steps">
+        <li>왼쪽 세로 메뉴에서 <span class="menu">📱 (UX)</span> 아이콘 클릭 → 화면(View) 목록이 나옵니다</li>
+        <li><b>PRIMARY NAVIGATION</b> = 앱 아래쪽 탭에 보이는 주요 화면들. 여기 화면을 고르면 오른쪽에서 설정합니다</li>
+        <li>새 화면은 <span class="click">PRIMARY NAVIGATION 옆 +</span> → <span class="click">Create a new view</span></li>
+        <li>각 화면에서 정하는 것: <b>View name</b>(이름) · <b>For this data</b>(어떤 테이블/슬라이스) · <b>View type</b>(deck/table/detail/form 등)</li>
+        <li>바꾼 뒤 오른쪽 위 파란 <span class="click">SAVE</span></li>
+      </ol>
+      <div class="box"><span class="t">💡 뷰 타입 한눈에</span> <b>deck</b>=카드 목록(추천) · <b>table</b>=표 · <b>detail</b>=한 건 상세 · <b>form</b>=입력 폼 · <b>dashboard</b>=여러 화면 한 번에(보드용).</div>
+
+      <h3>5-1. 표시값(라벨) — 번호 대신 이름·제목이 보이게 <span class="status done">완료</span></h3>
+      <p>설정 안 하면 담당자가 <code>E0002</code>, 업무가 <code>965cd804</code>처럼 <b>식별번호로만</b> 보입니다. 각 테이블에 "이 줄을 대표하는 컬럼(라벨)"을 정해주면 이름·제목으로 바뀝니다.</p>
+      <ol class="steps">
+        <li>Data → 테이블 → 컬럼 연필 → 아래로 스크롤 → <span class="menu">Display</span> 섹션 → <b>Label</b> 체크</li>
+        <li><b>G_직원 라벨 = 이름</b>, <b>F_Tasks 라벨 = 제목</b>, <b>F_Comments 라벨 = 댓글표시</b>(아래 5-4)로 지정</li>
+      </ol>
+      <div class="box good"><span class="t">⚠️ 라벨은 테이블당 1개</span> 새 라벨을 체크하기 전에 <b>기존 라벨을 먼저 해제</b>하세요. 안 그러면 AppSheet이 새로 체크한 걸 자동으로 풀어버립니다. (순서: 기존 라벨 해제 → 원하는 컬럼 Label 체크 → SAVE)</div>
+
+      <h3>5-2. "내 업무" 화면 — 본인 담당 업무만 <span class="status done">완료</span></h3>
+      <p>현장 직원이 앱을 열면 <b>자기에게 배정된 업무만</b> 보이게 하는 화면. 먼저 "필터(슬라이스)"를 만들고, 그 위에 화면을 올립니다.</p>
+      <ol class="steps">
+        <li>UX → PRIMARY NAVIGATION <span class="click">+</span> → <span class="click">Create a new view</span> → 이름 <span class="type">내 업무</span></li>
+        <li><b>For this data</b>를 <span class="type">F_Tasks</span>로 바꾼 뒤 → <span class="click">Use slices to filter your data</span> → <span class="click">Create a new slice for F_Tasks</span></li>
+        <li>슬라이스 이름 <span class="type">내업무</span>, <b>Row filter condition</b> 칸에 식 입력:<br>
+          <code>[담당자].[이메일] = USEREMAIL()</code> <span style="color:#6b7280">(담당자의 이메일이 = 지금 로그인한 사람)</span> → <span class="click">Done</span></li>
+        <li>다시 "내 업무" 화면에서 <b>For this data = 내업무</b>(슬라이스) 확인, <b>View type = deck</b> → <span class="click">SAVE</span></li>
+      </ol>
+      <div class="box"><span class="t">💡 식 입력 꿀팁(중요)</span> 식은 <b>인라인 "=" 칸에 직접 타이핑</b>하면 들어갑니다. 큰 "Expression Assistant" 창의 넓은 입력칸은 붙여넣기가 잘 안 될 수 있으니, 작은 "=" 칸에서 입력하세요. 한글 컬럼명 <code>[담당자]</code>도 그대로 타이핑됩니다.</div>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> 슬라이스 — 내업무</div>
+        <div class="body">
+          <div style="font-size:12px;color:#6b7280">Source Table</div>
+          <div class="ui-field" style="max-width:200px">F_Tasks</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:8px">Row filter condition</div>
+          <div class="ui-field">[담당자].[이메일] = USEREMAIL()</div>
+        </div>
+        <div class="cap">이렇게 하면 "내 업무" 화면에 로그인한 본인 담당 업무만 나옵니다.</div>
+      </div>
+
+      <h3>5-3. "업무 보드" — 상태별로 묶어 보기 <span class="status done">완료</span></h3>
+      <p>업무 목록을 <b>요청 / 진행중 / 완료</b>처럼 상태별로 묶어 보드처럼 보이게 합니다. (AppSheet엔 드래그 칸반이 없으니, "상태별 그룹화"로 같은 효과를 냅니다.)</p>
+      <ol class="steps">
+        <li>UX → <span class="type">F_Tasks</span> 화면 선택 → 아래로 스크롤 → <b>View Options</b></li>
+        <li><b>Group by</b> → <span class="click">Add</span> → 컬럼을 <span class="type">상태</span>로 선택 → <span class="click">SAVE</span></li>
+      </ol>
+      <div class="box good"><span class="t">결과</span> 업무들이 상태 머리글 아래로 묶여 표시됩니다. (정렬을 요청→진행중→완료 순서로 더 다듬을 수 있음 — 다음 작업.)</div>
+
+      <h3>5-4. 댓글 화면 정리 — 카드로, "작성자 · 내용" 한 줄로 <span class="status done">완료</span></h3>
+      <p>업무 상세 맨 아래 "댓글" 영역을 보기 좋게. ① 표→카드, ② 영역 이름을 "💬 댓글"로, ③ 카드에 작성자 이름이 보이게.</p>
+      <h4 style="margin:14px 0 6px;font-size:15px">① 카드(deck)로 바꾸기 + 이름</h4>
+      <ol class="steps">
+        <li>UX → SYSTEM GENERATED → <span class="type">F_Comments_Inline</span> 화면 선택 → <b>View type = deck</b> → SAVE</li>
+        <li>영역 이름 바꾸기: Data → F_Tasks → 맨 아래 <code>Related F_Comments</code> 컬럼 연필 → <b>Display → Display name</b> 칸에 <code>"💬 댓글"</code> 입력 → Done → SAVE</li>
+      </ol>
+      <h4 style="margin:14px 0 6px;font-size:15px">② 카드에 작성자 표시 — 가상컬럼 만들기</h4>
+      <ol class="steps">
+        <li>Data → F_Comments 테이블 → 오른쪽 위 <span class="menu">⋮ 메뉴</span> → <span class="click">Add virtual column</span></li>
+        <li>새로 생긴 <code>New Virtual Column</code> 연필 → 이름 <span class="type">댓글표시</span></li>
+        <li><b>App formula</b> 칸(인라인 "=")에 입력: <code>CONCATENATE([작성자].[이름], " · ", [내용])</code> → 저장<br>
+          <span style="color:#b91c1c">⚠️ 반드시 <b><code>[작성자].[이름]</code></b>(점 이름)로! 그냥 <code>[작성자]</code>만 쓰면 이름이 아니라 직원번호(E0001)가 나옵니다 — 참조 컬럼은 점(.)으로 표시할 컬럼을 지정해야 함.</span></li>
+        <li>F_Comments 라벨을 <b>내용 → 댓글표시</b>로 교체(5-1 방식: 내용 라벨 해제 → 댓글표시 Label 체크) → SAVE</li>
+      </ol>
+      <div class="mock">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> 💬 댓글</div>
+        <div class="body">
+          <div class="ui-field" style="max-width:300px">홍길동 · 현장 점검 완료, 이상 없습니다</div>
+          <div class="ui-field" style="max-width:300px">김현장 · 내일 처리 예정입니다</div>
+          <span class="ui-btn hl">+ Add</span>
+        </div>
+        <div class="cap">댓글이 "작성자 · 내용" 카드로 깔끔하게. Add로 누구나 댓글 추가.</div>
+      </div>
+
+      <div class="box good"><span class="t">🔴 가장 중요한 함정 (TRAP-004) — 댓글 키</span>
+        <b>댓글(F_Comments)의 키(Key)는 반드시 <code>Comment_ID</code>여야 합니다.</b> 만약 키가 부모인 <code>Task_ID</code>로 잡히면(자동추론이 그렇게 하기 쉬움), <b>한 업무에 댓글이 1개밖에 안 달립니다</b>(두 번째부터 "There is already a row with the key" 오류).<br>
+        조치: Data → F_Comments → <b>Comment_ID</b> = Type <span class="type">Text</span> + <b>Key 체크</b> + Initial value <code>UNIQUEID()</code> + (폼에서 숨기려면 Show? 해제), 그리고 <b>Task_ID의 Key는 해제</b>(참조는 유지). KEY 설정은 컬럼 목록을 오른쪽으로 스크롤하면 나오는 <b>KEY?</b> 체크박스에서.</div>
+
+      <div class="box"><span class="t">✅ 여기까지 하면</span> 내 업무·보드·이름표시·댓글까지 "쓸 수 있는 앱"이 됩니다. 남은 것(상태 전진 버튼·알림·전자결재)은 Part 6에서.</div>
     </section>
     <section id="p6">
       <span class="part-tag">PART 6</span> <span class="status todo">작성 예정</span>
